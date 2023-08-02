@@ -1,0 +1,33 @@
+// Contract successfully uses require()
+// Contract successfully uses assert()
+// Contract successfully uses revert() statements
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Savingslocker {
+    uint public accountBalance;
+
+    // Function to deposit funds to the account using require()
+    function deposit(uint _amount) public payable {
+        require(_amount > 0, "Please deposit an amount greater than 0");
+        accountBalance += _amount; // Increase the account balance by the deposit amount
+    }
+
+    // Function to withdraw funds from the account using assert()
+    function withdraw(uint _amount) public payable  {
+        require(_amount > 0, "Please withdraw an amount greater than 0");
+        assert(_amount <= accountBalance); // Check if the withdrawal amount is not greater than the account balance
+        accountBalance -= _amount; // Decrease the account balance by the withdrawal amount
+    }
+
+    // Function to set the account balance and use revert() if the input value is negative
+    function setBalance(uint _balance) public payable {
+        if (_balance < 0) {
+            revert("Cannot set a negative account balance"); // Revert the transaction if the input value is negative
+        }
+        accountBalance = _balance; // Set the account balance to the input value
+    }
+}
+
